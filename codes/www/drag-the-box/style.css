@@ -1,16 +1,16 @@
-*{
+* {
     margin: 0;
     box-sizing: border-box;
 }
-body{
+
+body {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-
-
 }
-.container{
+
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,15 +18,16 @@ body{
     width: 30vh;
     background-color: rgb(85, 82, 88);
 }
-.box{
-    width: 30vh;
-    height: 30vh;
+
+.box {
+    width: 10vh;
+    height: 10vh;
     border-radius: 50px;
     background-color: rgb(0, 0, 0);
     cursor: move;
     position: relative;
     transition: 0.3s ease-in-out;
-    box-shadow: 3px 3px 3px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 1px 1px 1px 5px rgba(0, 0, 0, 0.4);
 }
 
 .coord-display {
@@ -35,7 +36,22 @@ body{
     left: 20px;
     background-color: rgba(255, 255, 255, 0.8);
     padding: 5px;
-   
     font-family: Arial, sans-serif;
     font-size: 30px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 20vw;
+    }
+
+    .box {
+        width: 30vw;
+        height: 15vh;
+         /* Disable default touch behaviors */
+    }
+
+    .coord-display {
+        font-size: 12px;
+    }
 }
