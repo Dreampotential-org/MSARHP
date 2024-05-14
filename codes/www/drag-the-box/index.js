@@ -8,14 +8,14 @@ function drag() {
     const dragPlaySound2 = document.getElementById("dragPlaySound2");
     const dragPlaySound3 = document.getElementById("dragPlaySound3");
     const dragPlaySound4 = document.getElementById("dragPlaySound4");
-    // dragPlaySound.volume=0.0009;
-
+    
     boxes.forEach(box => {
         box.addEventListener("mousedown", mouseDown);
-        box.addEventListener("touchstart", touchStart); // Added touch event listener
+        box.addEventListener("touchstart", touchStart);
         box.style.position = 'absolute';
         box.style.top = 0;
         box.style.left = 0;
+        
     });
 
     function mouseDown(e) {
@@ -56,98 +56,52 @@ function drag() {
             dragging.style.top = eleY + DMY + "px";
 
             const coordDisplay = document.getElementById("coordDisplay");
-            coordDisplay.innerText = `Left: ${parseInt(dragging.style.left)}px`;
-            coordDisplay.innerText += `\nTop: ${eleY + DMY}px`;
-            if (DMX+eleX <= 100) {
-                dragPlaySound2.volume=0.03;
-                dragPlaySound2.play();
-                dragPlaySound1.pause();
-                dragPlaySound.pause();
-               
-            }else if(DMX+eleX > 101 && DMX+eleX <=200) {
-                dragPlaySound2.volume=0.3;
-                dragPlaySound2.play();
-                dragPlaySound1.pause();
-                dragPlaySound.pause();
-               
+            
+            coordDisplay.innerText = `Difference between boxes: ${Math.abs(parseInt(boxes[0].style.left) - parseInt(boxes[1].style.left))}px\nBox1 Left: ${parseInt(boxes[0].style.left)}px\nBox1 top: ${parseInt(boxes[0].style.top)}px\nBox2 Left: ${parseInt(boxes[1].style.left)}px\nBox2 top: ${parseInt(boxes[1].style.top)}px`;
+       
+            if (dragging === boxes[0] &&  parseInt(boxes[0].style.left) < 200) {
+                dragPlaySound2.volume =0.2;
+               dragPlaySound2.play();
+            }else if (dragging === boxes[0] &&   parseInt(boxes[0].style.left) > 201 && parseInt(boxes[0].style.left) < 400) {
+                dragPlaySound2.volume =0.4;
+               dragPlaySound2.play();
+            }else if (dragging === boxes[0] &&   parseInt(boxes[0].style.left) > 401 && parseInt(boxes[0].style.left) < 650) {
+                dragPlaySound2.volume =0.55;
+               dragPlaySound2.play();
             }
-            else if(DMX+eleX > 201 && DMX+eleX <=250) {
-                dragPlaySound2.volume=0.9;
-                dragPlaySound2.play();
-                dragPlaySound1.pause();
-                dragPlaySound.pause();
-               
+            else if (dragging === boxes[0] &&   parseInt(boxes[0].style.left)>651 &&  parseInt(boxes[0].style.left) < 800) {
+                dragPlaySound2.volume =0.7;
+               dragPlaySound2.play();
             }
-            else if (DMX+eleX >= 251 && DMX+eleX <=350) {
-                dragPlaySound1.volume=0.05;
-                dragPlaySound1.play();
-                dragPlaySound.pause();
-                dragPlaySound2.pause();
-
-            }else if (DMX+eleX >= 351 && DMX+eleX <=450) {
-                dragPlaySound1.volume=0.5;
-                dragPlaySound1.play();
-                dragPlaySound.pause();
-                dragPlaySound2.pause();
-
+            else if (dragging === boxes[0] &&   parseInt(boxes[0].style.left)> 800) {
+                dragPlaySound2.volume =0.9;
+               dragPlaySound2.play();
             }
-            else if (DMX+eleX >= 451 && DMX+eleX <=500) {
-                dragPlaySound1.volume=0.999;
-                dragPlaySound1.play();
-                dragPlaySound.pause();
-                dragPlaySound2.pause();
-
-            }
-            else if (DMX+eleX >= 501 && DMX+eleX <=600) {
-                dragPlaySound3.volume=0.05;
-                dragPlaySound3.play();
-                dragPlaySound.pause();
-                dragPlaySound1.pause();
-                dragPlaySound2.pause();
-
-            }else if (DMX+eleX >= 601 && DMX+eleX <=700) {
-                dragPlaySound3.volume=0.5;
-                dragPlaySound3.play();
-                dragPlaySound.pause();
-                dragPlaySound1.pause();
-                dragPlaySound2.pause();
-
-            }
-            else if (DMX+eleX >= 701 && DMX+eleX <=750) {
-                dragPlaySound3.volume=0.99;
-                dragPlaySound3.play();
-                dragPlaySound.pause();
-                dragPlaySound1.pause();
-                dragPlaySound2.pause();
-
-            }
-            else if (DMX+eleX >= 751 && DMX+eleX <=850) {
-                dragPlaySound4.volume=0.05;
-                dragPlaySound4.play();
-                dragPlaySound.pause();
-                dragPlaySound1.pause();
-                dragPlaySound2.pause();
-
-            } else if (DMX+eleX >= 851 && DMX+eleX <=950) {
-                dragPlaySound4.volume=0.5;
-                dragPlaySound4.play();
-                dragPlaySound.pause();
-                dragPlaySound1.pause();
-                dragPlaySound2.pause();
-
-            }else if (DMX+eleX >= 951 && DMX+eleX <=1050) {
-                dragPlaySound4.volume=0.99;
-                dragPlaySound4.play();
-                dragPlaySound.pause();
-                dragPlaySound1.pause();
-                dragPlaySound2.pause();
-
+            else if (dragging === boxes[1] &&  parseInt(boxes[1].style.left) < 200) {
+                dragPlaySound1.volume =0.2;
+               dragPlaySound1.play();
             }
 
-            else{
-                dragPlaySound.volume=0.999999999999999999999999999999999999999999999999999999;
-                dragPlaySound.play();
+            else if (dragging === boxes[1] &&   parseInt(boxes[1].style.left) > 201 && parseInt(boxes[1].style.left) < 400) {
+                dragPlaySound1.volume =0.4;
+               dragPlaySound1.play();
+            }else if (dragging === boxes[1] &&   parseInt(boxes[1].style.left) > 401 && parseInt(boxes[1].style.left) < 650) {
+                dragPlaySound1.volume =0.55;
+               dragPlaySound1.play();
             }
+            else if (dragging === boxes[1] &&   parseInt(boxes[1].style.left)>651 &&  parseInt(boxes[1].style.left) < 800) {
+                dragPlaySound1.volume =0.7;
+               dragPlaySound1.play();
+            }
+            else if (dragging === boxes[1] &&   parseInt(boxes[1].style.left)> 800) {
+                dragPlaySound1.volume =0.9;
+               dragPlaySound1.play();
+            }
+
+
+            //  else if (dragging === boxes[1]) {
+            //     dragPlaySound1.play();
+            // }
         }
     }
 
@@ -163,62 +117,44 @@ function drag() {
             dragging.style.top = eleY + DMY + "px";
 
             const coordDisplay = document.getElementById("coordDisplay");
-            coordDisplay.innerText = `Left: ${parseInt(dragging.style.left)}px`;
-            coordDisplay.innerText += `\nTop: ${eleY + DMY}px`;
-            if (DMX+eleX <= 100) {
-                dragPlaySound2.volume=0.3;
+           
+            coordDisplay.innerText = `Difference between boxes: ${Math.abs(parseInt(boxes[0].style.left) - parseInt(boxes[1].style.left))}px\nBox1 Left: ${parseInt(boxes[0].style.left)}px\nBox1 top: ${parseInt(boxes[0].style.top)}px\nBox2 Left: ${parseInt(boxes[1].style.left)}px\nBox2 top: ${parseInt(boxes[1].style.top)}px`;
+       
+            if (dragging === boxes[0] &&  parseInt(boxes[0].style.left) < 100) {
+                dragPlaySound2.volume =0.2;
                 dragPlaySound2.play();
-                dragPlaySound1.pause();
-                dragPlaySound.pause();
-               
-            }else if(DMX+eleX > 101 && DMX+eleX <=150) {
-                dragPlaySound2.volume=0.5;
+            }else if (dragging === boxes[0] &&   parseInt(boxes[0].style.left) > 101 && parseInt(boxes[0].style.left) < 200) {
+                dragPlaySound2.volume =0.4;
                 dragPlaySound2.play();
-                dragPlaySound1.pause();
-                dragPlaySound.pause();
-               
+            }else if (dragging === boxes[0] &&   parseInt(boxes[0].style.left) > 201 && parseInt(boxes[0].style.left) < 300) {
+                dragPlaySound2.volume =0.55;
+                dragPlaySound2.play();
             }
-            else if(DMX+eleX > 151 && DMX+eleX <=220) {
-                dragPlaySound2.volume=0.9;
+            else if (dragging === boxes[0] &&   parseInt(boxes[0].style.left) > 301 &&  parseInt(boxes[0].style.left) < 550) {
+                dragPlaySound2.volume =0.7;
                 dragPlaySound2.play();
-                dragPlaySound1.pause();
-                dragPlaySound.pause();
-               
             }
-            else if(DMX+eleX > 221 && DMX+eleX <=300) {
-                dragPlaySound2.volume=0.8;
+            else if (dragging === boxes[0] &&   parseInt(boxes[0].style.left)> 551) {
+                dragPlaySound2.volume =0.9;
                 dragPlaySound2.play();
-                dragPlaySound1.pause();
-                dragPlaySound.pause();
-               
             }
-            else if(DMX+eleX > 301 && DMX+eleX <=400) {
-                dragPlaySound2.volume=0.3;
-                dragPlaySound2.play();
-                dragPlaySound1.pause();
-                dragPlaySound.pause();
-               
+            else if (dragging === boxes[1] &&  parseInt(boxes[1].style.left) < 100) {
+                dragPlaySound1.volume =0.2;
+                dragPlaySound1.play();
+            }else if (dragging === boxes[1] &&   parseInt(boxes[1].style.left) > 101 && parseInt(boxes[1].style.left) < 200) {
+                dragPlaySound1.volume =0.4;
+                dragPlaySound1.play();
+            }else if (dragging === boxes[1] &&   parseInt(boxes[1].style.left) > 201 && parseInt(boxes[1].style.left) < 300) {
+                dragPlaySound1.volume =0.55;
+                dragPlaySound1.play();
             }
-            else if(DMX+eleX > 401 && DMX+eleX <=550) {
-                dragPlaySound2.volume=0.5;
-                dragPlaySound2.play();
-                dragPlaySound1.pause();
-                dragPlaySound.pause();
-               
+            else if (dragging === boxes[1] &&   parseInt(boxes[1].style.left) > 301 &&  parseInt(boxes[1].style.left) < 550) {
+                dragPlaySound1.volume =0.7;
+                dragPlaySound1.play();
             }
-            else if(DMX+eleX > 551 && DMX+eleX <=650) {
-                dragPlaySound2.volume=0.7;
-                dragPlaySound2.play();
-                dragPlaySound1.pause();
-                dragPlaySound.pause();
-               
-            }
-            else if(DMX+eleX > 651 && DMX+eleX <=1110) {
-                dragPlaySound2.volume=0.99999;
-                dragPlaySound2.play();
-                dragPlaySound1.pause();
-                dragPlaySound.pause();
-               
+            else if (dragging === boxes[1] &&   parseInt(boxes[1].style.left)> 551) {
+                dragPlaySound1.volume =0.9;
+                dragPlaySound1.play();
             }
         }
     }
