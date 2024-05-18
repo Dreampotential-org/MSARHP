@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    
+    <link rel="stylesheet" href="css/index.css">
+    
+
+    <style>
+        /* CSS for centering and animating buttons */
+
+        /* Center the buttons and add proper x-axis alignment */
+        #stats > div {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        /* Style for the buttons */
+        .interval_button {
+            background-color: rgb(37, 184, 181);
+            color: rgb(8, 0, 0);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hover effect */
+        .interval_button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Active effect */
+        .interval_button:active {
+            transform: scale(0.9);
+            box-shadow: none;
+        }
+
+        /* Ensure button visibility */
+        .interval_button:focus {
+            outline: none;
+        }
+
+        /* Adjust z-index for button visibility */
+        .interval_button:not(:focus) {
+            opacity: 1;
+        }
+
+        /* Adjust opacity for active button */
+        .interval_button:active {
+            opacity: 1 !important;
+        }
+    </style>
+    <title>DreamAi</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFH-yKmfPyaa18_uYUwVWb7THj-b1hymE&v=weekly"></script>
+</head>
+<body>
+    <div id="stats">
+        <h1 id="total_miles">Total Miles: <b><span id="stats_miles"><span></b></h1><br>
+        <h1 id="mph">MPH: <b><span id="stats_mph"><span></b></h1>
+    </div>
+    <script src="js/stats.js"></script>
+    <script src="js/gps.js"></script>
+</body>
+
+</html>

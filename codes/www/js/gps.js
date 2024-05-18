@@ -64,7 +64,8 @@ function geo_success_low(position) {
     CURRENT_POSITION_LOW = position
     console.log(position.coords.latitude +
         " " + position.coords.longitude);
-    session_point(position)
+    // session_point(position)
+    localstats(position)
 
 }
 
@@ -72,12 +73,13 @@ function geo_success(position) {
     CURRENT_POSITION = position
     console.log(position.coords.latitude +
         " " + position.coords.longitude);
-    session_point(position)
+    // session_point(position)
+    localstats(position)
 }
 
 
 function geo_error(err) {
-	console.log("Geo error" + err.code);
+    console.log("Geo error" + err.code);
 
     if (err.code == 1 || err.code == err.PERMISSION_DENIED ||
         err.code == err.UNKNOWN_ERROR) {
@@ -95,4 +97,6 @@ function geo_error(err) {
     console.warn('ERROR(' + err.code + '): ' + err.message);
 }
 
-window.addEventListener('DOMContentLoaded', init_gps_stuff, false);
+window.addEventListener(
+	'DOMContentLoaded', init_gps_stuff, false
+);
