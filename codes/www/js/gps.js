@@ -2,17 +2,9 @@
 var POINTS = []
 
 
-function init_gps_stuff() {
-    init_gps_event();
-}
-
 var CURRENT_POSITION = null;
 var CURRENT_POSITION_LOW = null;
 var GPS_FAILED = false
-
-function init_gps_event() {
-    // api_gps_checkin();
-}
 
 function api_gps_checkin() {
     var body = {}
@@ -33,7 +25,7 @@ function isApp() {
             typeof(phonegap) !== 'undefined');
 }
 
-function start_gps() {
+function start() {
     console.log("Started gps");
     GPS_FAILED = false;
 
@@ -57,14 +49,12 @@ function start_gps() {
     navigator.geolocation.watchPosition(
         geo_success, geo_error, geo_options
     );
-
 }
 
 function geo_success_low(position) {
     CURRENT_POSITION_LOW = position
     console.log(position.coords.latitude +
         " " + position.coords.longitude);
-    // session_point(position)
     localstats(position)
 
 }
@@ -73,7 +63,6 @@ function geo_success(position) {
     CURRENT_POSITION = position
     console.log(position.coords.latitude +
         " " + position.coords.longitude);
-    // session_point(position)
     localstats(position)
 }
 
@@ -92,11 +81,11 @@ function geo_error(err) {
         GPS_FAILED = true
         return
     }
-    start_gps()
+    start()
     console.log("errror no gps")
     console.warn('ERROR(' + err.code + '): ' + err.message);
 }
 
 window.addEventListener(
-	'DOMContentLoaded', init_gps_stuff, false
+	'DOMContentLoaded', start, false
 );

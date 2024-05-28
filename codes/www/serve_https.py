@@ -35,8 +35,8 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 httpd = HTTPServer(("0.0.0.0", 1279), SimpleHTTPRequestHandler)
 
 httpd.socket = ssl.wrap_socket(httpd.socket,
-                               keyfile="/etc/letsencrypt/live/lifeforceenergy.us/privkey.pem",
-                               certfile="/etc/letsencrypt/live/lifeforceenergy.us/fullchain.pem",
+                               keyfile="/etc/letsencrypt/live/realtorstat.com/privkey.pem",
+                               certfile="/etc/letsencrypt/live/realtorstat.com/fullchain.pem",
                                 server_side=True)
 
 

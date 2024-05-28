@@ -21,6 +21,11 @@ server {
         location /rtv {
             try_files $uri $uri/ /rtv.html;
         }
+        location /offline/ {
+            try_files $uri $uri/ /offline.html;
+        }
+
+
 
 
 }

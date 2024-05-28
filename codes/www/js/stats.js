@@ -70,7 +70,9 @@ function get_distance(lat1, lon1, lat2, lon2, unit) {
 
 function get_local_stats() {
     var distance = 0;
-    let speedFlow =   ['none', 'normal','fast','tofast','slow','toslow']
+    let speedFlow =   [
+	  'none', 'normal','fast','tofast','slow','toslow'
+    ]
 
     let complete_one_mile = 0;
     let complete_one_mile_time = 0;

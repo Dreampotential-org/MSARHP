@@ -31,6 +31,6 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         return get_file(self)
 
 
-httpd = HTTPServer(("0.0.0.0", 1279), SimpleHTTPRequestHandler)
+httpd = HTTPServer(("0.0.0.0", 8087), SimpleHTTPRequestHandler)
 httpd.serve_forever()
 

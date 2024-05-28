@@ -1,19 +1,19 @@
 var POINTS = []
-function session_point(position)  {
+function localstats(position)  {
     point = {
-	     'latitude':  position.coords.latitude,
+	'latitude':  position.coords.latitude,
         'longitude': position.coords.longitude,
         'created_at': new Date()
     }
 
     POINTS.push(point)
 
-    if (POINTS.length == 1) {
-        add_point("map_canvas", point, true)
+    //if (POINTS.length == 1) {
+    //    add_point("map_canvas", point, true)
 	     //alert("DJDJDJ")
-    }
+    //}
+    $("#debug").append(point)
     add_point("map_canvas", point, false)
-    session_point_api(position)
 }
 
 function get_distance(lat1, lon1, lat2, lon2, unit) {
