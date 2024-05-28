@@ -1,14 +1,12 @@
 var POINTS = []
-let total_miles=document.getElementById('total_miles')
+let total_miles = document.getElementById('total_miles')
+
 function session_point(position)  {
     point = {
 	'latitude':  position.coords.latitude,
         'longitude': position.coords.longitude,
         'created_at': new Date()
     }
-    
-     
-
 
     POINTS.push(point)
 
@@ -36,16 +34,14 @@ function localstats(position)  {
     }
 
     // update total distance
-    console.log(getspdistance(POINTS));
-    totaldistance += get_distance(  
-	POINTS[ POINTS.length -2 ]['latitude'],
-	POINTS[ POINTS.length -2 ]['longitude'],
+    var results = getspdistance(POINTS);
 
-	POINTS[ POINTS.length -1 ]['latitude'],
-	POINTS[ POINTS.length -1 ]['longitude'],
-	"M")
-
-    $("#stats_miles").text(totaldistance)
+    $("#stats_miles").text(results)
+    console.log(calculateSpeed(
+	position.coords.latitude,
+        position.coords.longitude,
+	POINTS[ POINTS.length - 1 ]['latitude'], 
+    	POINTS[ POINTS.length - 1 ]['longitude']))
 }
 
 
@@ -117,8 +113,9 @@ function get_local_stats() {
     console.log({distance});
     console.log({POINTS});
 }
-function getspdistance(session_points){
-    if(!session_points){
+
+function getspdistance(points) {
+    if(!points){
         return {'distance_miles': 0,
                 'distance_meters': 0,
                 'interval_stats': []}
@@ -130,17 +127,17 @@ function getspdistance(session_points){
     let speed_per_mile_cover_last = 0;
     let start_session;
     let distance;
-    for (var i = 0; i < session_points.length -1; i++) {
+    for (var i = 0; i < points.length -1; i++) {
         if(start_session == null){
-            start_session = session_points[i]
+            start_session = points[i]
 
         }
         distance = get_distance(
-            session_points[i].latitude, session_points[i].longitude,
-            session_points[i + 1 ].latitude, session_points[i +1].longitude
+            points[i].latitude, points[i].longitude,
+            points[i + 1 ].latitude, points[i +1].longitude
         )
         if(complete_one_mile == 0){
-            speed_cover_per_mile = session_points[i].created_at
+            speed_cover_per_mile = points[i].created_at
 
         }
         session_distance += distance
@@ -148,14 +145,14 @@ function getspdistance(session_points){
         complete_one_mile += distance
         if (0.62137 * interval_distance >= .1){
              hours = float(
-                (start_session.created_at - session_points[i].created_at).seconds/
+                (start_session.created_at - points[i].created_at).seconds/
                 (60 * 60)
             )
              mph = (
                 (0.62137 * interval_distance) / hours
             )
 
-            start_session = session_points[i]
+            start_session = points[i]
             interval_stats.append({
                 'distance': interval_distance,
                 'mph': mph,
@@ -170,7 +167,7 @@ function getspdistance(session_points){
                
     if (0.62137 * complete_one_mile >= 1){
          hours = float(
-             (speed_cover_per_mile - session_points[i].created_at).seconds/
+             (speed_cover_per_mile - points[i].created_at).seconds/
              (60 * 60)
          )
           mph = (
@@ -200,21 +197,41 @@ function getspdistance(session_points){
          })
          complete_one_mile = 0
         }
-       
-
     }
-    const data= {'distance_miles': session_distance * 0.62137,
-    'distance_meters': session_distance * 1000,
-    'interval_stats': interval_stats,
-    "POINTS": POINTS.length,
-    
-}   
+
+    const data = {
+	'distance_miles': session_distance * 0.62137,
+	'distance_meters': session_distance * 1000,
+	'interval_stats': interval_stats,
+	"POINTS": POINTS.length,
+    }   
+
     return JSON.stringify(data);
-    
-    
-
-   
-
-    
 }
 
+
+function calculateSpeed(t1, lat1, lng1, t2, lat2, lng2) {
+  // From Caspar Kleijne's answer starts
+  /** Converts numeric degrees to radians */
+  if (typeof(Number.prototype.toRad) === "undefined") {
+    Number.prototype.toRad = function() {
+      return this * Math.PI / 180;
+    }
+  }
+  // From Caspar Kleijne's answer ends
+  // From cletus' answer starts
+  var R = 6371; // km
+  var dLat = (lat2-lat1).toRad();
+  var dLon = (lng2-lng1).toRad();
+
+  lat1 = lat1.toRad();
+  lat2 = lat2.toRad();
+
+  var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) *    Math.cos(lat2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  var distance = R * c;
+  // From cletus' answer ends
+
+  return distance / t2 - t1;
+}
