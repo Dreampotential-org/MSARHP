@@ -41,8 +41,8 @@ function start() {
 
     geo_options = {
         enableHighAccuracy: true,
-        maximumAge: 1000,
-        timeout: 5000
+        //maximumAge: 1000,
+        //timeout: 5000
     };
 
     // Start gps prob with high accuracy

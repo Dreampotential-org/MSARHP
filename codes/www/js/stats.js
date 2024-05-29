@@ -21,6 +21,16 @@ function session_point(position)  {
 
 var totaldistance = 0
 function localstats(position)  {
+
+
+	/*	
+    calculateSpeed(new Date(),
+	           37.3954791, -122.117815,
+	    	   new Date(), 37.3522517, -122.038765)
+	return
+	*/
+
+
     point = {
 	'latitude':  position.coords.latitude,
         'longitude': position.coords.longitude,
@@ -239,18 +249,8 @@ function CalcDistanceBetween(lat1, lon1, lat2, lon2) {
 }
 
 function calculateSpeed(t1, lat1, lng1, t2, lat2, lng2) {
-  // From Caspar Kleijne's answer ends
-  // From cletus' answer starts
-  var R = 6371; // km
-  var dLat = toRad(lat2-lat1)
-  var dLon = toRad(lng2-lng1)
-
-  lat1 = toRad(lat1);
-  lat2 = toRad(lat2)
-
-  var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) *    Math.cos(lat2);
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  var distance = R * c;
+  var hours = (t2 - t1)  /(1000 * 60 * 60)
+  distance = CalcDistanceBetween(lat1, lng1, lat2, lng2)
+  console.log("Distance is " + distance + " hours are " + hours)
   return distance / (t2 - t1);
 }
