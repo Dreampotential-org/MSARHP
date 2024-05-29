@@ -1,5 +1,4 @@
 var POINTS = []
-let total_miles = document.getElementById('total_miles')
 
 function session_point(position)  {
     point = {
@@ -52,8 +51,8 @@ var newDateObj = new Date(oldDateObj.getTime() + diff*60000);
     var results = getspdistance(POINTS);
     prevpoint = getopostamp(POINTS)
 
-    $("#stats_miles").text(results)
-    $("#stats_mph").text(calculateSpeed(
+    $("#distance").text(results['miles'])
+    $("#mph").text(calculateSpeed(
 		prevpoint['created_at'],
 		prevpoint['latitude'], 
 		prevpoint['longitude'],
@@ -156,8 +155,8 @@ function get_local_stats() {
 
 function getspdistance(points) {
     if(!points){
-        return {'distance_miles': 0,
-                'distance_meters': 0,
+        return {'miles': 0,
+                'meters': 0,
                 'interval_stats': []}
     }
     let interval_distance=0;
@@ -239,14 +238,12 @@ function getspdistance(points) {
         }
     }
 
-    const data = {
-	'distance_miles': session_distance * 0.62137,
-	'distance_meters': session_distance * 1000,
+    return {
+	'miles': session_distance * 0.62137,
+	'meters': session_distance * 1000,
 	'interval_stats': interval_stats,
 	"POINTS": POINTS.length,
     }   
-
-    return JSON.stringify(data);
 }
 
 
