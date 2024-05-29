@@ -21,15 +21,16 @@ function session_point(position)  {
 
 var totaldistance = 0
 function localstats(position)  {
+	/*
+	diff = 2
+	var oldDateObj = new Date()
+var newDateObj = new Date(oldDateObj.getTime() + diff*60000);
 
-
-	/*	
-    calculateSpeed(new Date(),
+    console.log(calculateSpeed(new Date(),
 	           37.3954791, -122.117815,
-	    	   new Date(), 37.3522517, -122.038765)
+	    	   newDateObj, 37.3522517, -122.038765))
 	return
 	*/
-
 
     point = {
 	'latitude':  position.coords.latitude,
@@ -49,19 +50,38 @@ function localstats(position)  {
 
     // update total distance
     var results = getspdistance(POINTS);
+    prevpoint = getopostamp(POINTS)
 
     $("#stats_miles").text(results)
     $("#stats_mph").text(calculateSpeed(
+		prevpoint['created_at'],
+		prevpoint['latitude'], 
+		prevpoint['longitude'],
+
 		POINTS[ POINTS.length - 1 ]['created_at'],
 		POINTS[ POINTS.length - 1 ]['latitude'], 
 		POINTS[ POINTS.length - 1 ]['longitude'],
-
-	new Date(),
-	position.coords.latitude,
-        position.coords.longitude,
 	)
-
     )
+}
+
+function getopostamp(points) { 
+   // We want to get oldest matching 
+
+	var index = 0
+	var newDateObj = new Date() - 2000;
+	for(var i = points.length -1; i >= 0; i-- ) {
+	    var point = points[i]
+		if (point['created_at'] < newDateObj) {
+			$("#debug3").text(
+			   "se: " + i + " w " + points.length)	
+			return point
+		}
+		index++
+	}
+
+	return points[ points.length - 2]
+
 }
 
 
@@ -249,8 +269,14 @@ function CalcDistanceBetween(lat1, lon1, lat2, lon2) {
 }
 
 function calculateSpeed(t1, lat1, lng1, t2, lat2, lng2) {
+
   var hours = (t2 - t1)  /(1000 * 60 * 60)
   distance = CalcDistanceBetween(lat1, lng1, lat2, lng2)
   console.log("Distance is " + distance + " hours are " + hours)
-  return distance / (t2 - t1);
+
+  var mph =  distance / hours;
+  $("#debug").append(
+	 "Distance is " + distance + " hours are " + hours + " mph" + mph + " <br>")
+
+  return mph
 }
