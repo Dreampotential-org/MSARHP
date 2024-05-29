@@ -30,18 +30,28 @@ function localstats(position)  {
     POINTS.push(point)
 
     if (POINTS.length == 1) {
+        add_point("map_canvas", point, true)
 	return
     }
+    add_point("map_canvas", point, false)
+
+
 
     // update total distance
     var results = getspdistance(POINTS);
 
     $("#stats_miles").text(results)
-    console.log(calculateSpeed(
+    $("#stats_mph").text(calculateSpeed(
+		POINTS[ POINTS.length - 1 ]['created_at'],
+		POINTS[ POINTS.length - 1 ]['latitude'], 
+		POINTS[ POINTS.length - 1 ]['longitude'],
+
+	new Date(),
 	position.coords.latitude,
         position.coords.longitude,
-	POINTS[ POINTS.length - 1 ]['latitude'], 
-    	POINTS[ POINTS.length - 1 ]['longitude']))
+	)
+
+    )
 }
 
 
@@ -210,28 +220,37 @@ function getspdistance(points) {
 }
 
 
+function toRad(Value) {
+    /** Converts numeric degrees to radians */
+    return Value * Math.PI / 180;
+}
+
+function CalcDistanceBetween(lat1, lon1, lat2, lon2) {
+    //Radius of the earth in:  1.609344 miles,  6371 km  | var R = (6371 / 1.609344);
+    var R = 3958.7558657440545; // Radius of earth in Miles
+    var dLat = toRad(lat2-lat1);
+    var dLon = toRad(lon2-lon1);
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+            Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c;
+    return d;
+}
+
 function calculateSpeed(t1, lat1, lng1, t2, lat2, lng2) {
-  // From Caspar Kleijne's answer starts
-  /** Converts numeric degrees to radians */
-  if (typeof(Number.prototype.toRad) === "undefined") {
-    Number.prototype.toRad = function() {
-      return this * Math.PI / 180;
-    }
-  }
   // From Caspar Kleijne's answer ends
   // From cletus' answer starts
   var R = 6371; // km
-  var dLat = (lat2-lat1).toRad();
-  var dLon = (lng2-lng1).toRad();
+  var dLat = toRad(lat2-lat1)
+  var dLon = toRad(lng2-lng1)
 
-  lat1 = lat1.toRad();
-  lat2 = lat2.toRad();
+  lat1 = toRad(lat1);
+  lat2 = toRad(lat2)
 
   var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
     Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) *    Math.cos(lat2);
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
   var distance = R * c;
-  // From cletus' answer ends
-
-  return distance / t2 - t1;
+  return distance / (t2 - t1);
 }
