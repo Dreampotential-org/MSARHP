@@ -17,7 +17,7 @@ function add_point(selector, point, first) {
         document.getElementById(selector), {
             center: new google.maps.LatLng(point.latitude,
                                            point.longitude),
-            zoom: 13,
+            zoom: 16,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
     }

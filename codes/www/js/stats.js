@@ -52,6 +52,7 @@ var newDateObj = new Date(oldDateObj.getTime() + diff*60000);
     prevpoint = getopostamp(POINTS)
 
     $("#distance").text(results['miles'])
+    $("#marks").text(POINTS.length)
     $("#mph").text(calculateSpeed(
 		prevpoint['created_at'],
 		prevpoint['latitude'], 
@@ -272,8 +273,8 @@ function calculateSpeed(t1, lat1, lng1, t2, lat2, lng2) {
   console.log("Distance is " + distance + " hours are " + hours)
 
   var mph =  distance / hours;
-  $("#debug").append(
-	 "Distance is " + distance + " hours are " + hours + " mph" + mph + " <br>")
+  //$("#debug").append(
+//	 "Distance is " + distance + " hours are " + hours + " mph" + mph + " <br>")
 
   return mph
 }
