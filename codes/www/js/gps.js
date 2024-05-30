@@ -26,6 +26,9 @@ function isApp() {
 }
 
 function start() {
+    if (isApp()) {
+	cordova.plugins.backgroundMode.enable();
+    }
     console.log("Started gps");
     GPS_FAILED = false;
 
