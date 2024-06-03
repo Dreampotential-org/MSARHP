@@ -29,6 +29,10 @@ function start() {
     if (isApp()) {
 	window.addEventListener('deviceready', function() { 
 		cordova.plugins.backgroundMode.enable();
+
+			download()
+
+
 	}, false)
     }
     console.log("Started gps");

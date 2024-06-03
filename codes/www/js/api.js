@@ -7,6 +7,36 @@ function get_finger_print() {
 }
 
 
+
+
+
+
+function download(callback) {
+
+    var form = new FormData();
+
+    $.ajax({
+        url: SERVER + "storage/getfiles/",
+        async: true,
+        crossDomain: true,
+        method: "GET",
+        processData: false,
+        contentType: false,
+        mimeType: "multipart/form-data",
+        data: form,
+        headers: {
+            Authorization: localStorage.getItem('token'),
+        },
+        success: function (response) {
+            console.log("start session response: ", response);
+            callback(JSON.parse(response)['results'])
+        },
+        error: function (err) {
+            console.log("start error", err)
+        },
+    });
+}
+
 function getfiles(callback) {
 
     var form = new FormData();
