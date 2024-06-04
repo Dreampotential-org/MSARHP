@@ -24,17 +24,14 @@
         "GPS_REQUIRED": "true"
       },
       "cordova-plugin-device-motion": {},
-      "cordova-plugin-background-mode": {},
-      "cordova-plugin-file-transfer": {}
+      "cordova-plugin-background-mode": {}
     }
   },
   "devDependencies": {
     "cordova-android": "^10.1.2",
-    "cordova-plugin-background-mode": "github:datazen/cordova-plugin-background-mode",
+    "cordova-plugin-background-mode": "github:alindzon/cordova-plugin-background-mode#master",
     "cordova-plugin-device": "^2.1.0",
     "cordova-plugin-device-motion": "^2.0.1",
-    "cordova-plugin-file": "^8.0.1",
-    "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-geolocation": "^4.1.0"
   }
 }

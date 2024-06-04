@@ -26,15 +26,7 @@ function isApp() {
 }
 
 function start() {
-    if (isApp()) {
-	window.addEventListener('deviceready', function() { 
-		cordova.plugins.backgroundMode.enable();
-
-			download()
-
-
-	}, false)
-    }
+	alert("start method called" + isApp())
     console.log("Started gps");
     GPS_FAILED = false;
 
@@ -95,6 +87,15 @@ function geo_error(err) {
     console.warn('ERROR(' + err.code + '): ' + err.message);
 }
 
-window.addEventListener(
-	'DOMContentLoaded', start, false
-);
+//window.addEventListener(
+//	'DOMContentLoaded', start, false
+//);
+
+
+
+window.addEventListener('deviceready', function() { 
+alert("Try to start background mode")
+	cordova.plugins.backgroundMode.enable();
+	start();
+	}, false)
+
