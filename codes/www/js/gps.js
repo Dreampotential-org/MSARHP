@@ -87,9 +87,9 @@ function geo_error(err) {
     console.warn('ERROR(' + err.code + '): ' + err.message);
 }
 
-//window.addEventListener(
-//	'DOMContentLoaded', start, false
-//);
+window.addEventListener(
+'DOMContentLoaded', start, false
+
 
 
 

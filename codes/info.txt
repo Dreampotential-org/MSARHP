@@ -1,0 +1,40 @@
+Node version: v18.17.1
+
+Cordova version: 5.3.3
+
+Config.xml file: 
+
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.example.hello" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>HelloWorld</name>
+    <description>Sample Apache Cordova App</description>
+    <author email="dev@cordova.apache.org" href="https://cordova.apache.org">
+        Apache Cordova Team
+    </author>
+    <content src="index.html" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+<edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
+    <string>need location access to find things nearby</string>
+</edit-config>
+
+
+<edit-config target="NSLocationAlwaysAndWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
+    <string>need location access to find things nearby</string>
+</edit-config>
+
+<edit-config target="NSLocationAlwaysUsageDescription" file="*-Info.plist" mode="merge">
+    <string>need location access to find things nearby</string>
+</edit-config>
+<preference name="android-targetSdkVersion" value="33" />
+<platform name="android"><preference name="loadUrlTimeoutValue" value="700000" /></platform>
+
+</widget>
+
+
+Plugins: 
+
+cordova-plugin-background-mode,cordova-plugin-device,cordova-plugin-device-motion,cordova-plugin-geolocation
+
+Error retrieving Android platform information: Error: android: Command failed with exit code ENOENT
+

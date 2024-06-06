@@ -13,6 +13,7 @@
   "author": "Apache Cordova Team",
   "license": "Apache-2.0",
   "dependencies": {
+    "cordova": "^5.3.3",
     "jquery": "^3.6.1"
   },
   "cordova": {
