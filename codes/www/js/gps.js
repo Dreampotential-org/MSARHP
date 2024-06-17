@@ -27,7 +27,6 @@ function isApp() {
 
 function start() {
     if (isApp()) {
-	cordova.plugins.backgroundMode.enable();
     }
     console.log("Started gps");
     GPS_FAILED = false;
@@ -89,6 +88,18 @@ function geo_error(err) {
     console.warn('ERROR(' + err.code + '): ' + err.message);
 }
 
+/*
 window.addEventListener(
 	'DOMContentLoaded', start, false
 );
+
+*/
+
+document.addEventListener('deviceready', onDeviceReady, false);
+
+function onDeviceReady() {
+alert("Hello device ready")
+    cordova.plugins.backgroundMode.enable();
+	start();
+}
+
