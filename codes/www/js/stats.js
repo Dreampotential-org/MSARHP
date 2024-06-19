@@ -63,6 +63,14 @@ var newDateObj = new Date(oldDateObj.getTime() + diff*60000);
 		POINTS[ POINTS.length - 1 ]['longitude'],
 	)
     )
+
+
+    // every 10 seconds push the points to the api
+    setInterval(function() {  
+ 
+
+    }, 10000)
+
 }
 
 function getopostamp(points) { 

@@ -124,6 +124,35 @@ function start_session_api(callback) {
 }
 
 
+function savedots(callback) {
+
+    var form = new FormData();
+    form.append("deviceid", get_finger_print())
+    form.append("source", window.location.host);
+    form.append("points", POINTS);
+
+    $.ajax({
+        url: SERVER + "ashe/dotsbu",
+        async: true,
+        crossDomain: true,
+        method: "POST",
+        processData: false,
+        contentType: false,
+        mimeType: "multipart/form-data",
+        data: form,
+
+        success: function (response) {
+            console.log("start session response: ", response);
+            GLOBAL_SESSION_ID = JSON.parse(response)['session_id']
+            localStorage.setItem('token', GLOBAL_SESSION_ID)
+            callback(JSON.parse(response)['session_id'])
+
+        },
+        error: function (err) {
+            console.log("start error", err)
+        },
+    });
+}
 
 
 // XXX we need to make this api bulk syncing

@@ -92,10 +92,8 @@ window.addEventListener(
 
 
 
-
-document.addEventListener('deviceready', function() { 
-alert("Try to start background mode")
-	cordova.plugins.backgroundMode.enable();
-	start();
-	}, false)
-
+//document.addEventListener('deviceready', function() { 
+//alert("Try to start background mode")
+//	cordova.plugins.backgroundMode.enable();
+//	start();
+//	}, false)
