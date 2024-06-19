@@ -1,11 +1,7 @@
 var geocoder;
 var map;
 var lastCoordinates = [];
-var polyline = new google.maps.Polyline({
-   // set desired options for color width
-   strokeColor:"#0000FF",  // blue (RRGGBB, R=red, G=green, B=blue)
-   strokeOpacity: 0.4      // opacity of line
-}); // create the polyline (global)
+var polyline = null;
 var path = []; // global variable to hold all the past locations
 
 var map = null;

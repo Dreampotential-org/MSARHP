@@ -7,7 +7,7 @@ function init() {
     init_subscription()
     init_music_events()
     console.log("STart HERe")
-    start_session_api(function (session) {
+    startsessionapi(function (session) {
         console.log("Start Session")
         start_gps();
     })

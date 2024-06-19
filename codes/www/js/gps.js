@@ -1,10 +1,11 @@
 
-var POINTS = []
+var POINTS = [];
 
 
 var CURRENT_POSITION = null;
 var CURRENT_POSITION_LOW = null;
-var GPS_FAILED = false
+var GPS_FAILED = false;
+var isActive = false;
 
 function api_gps_checkin() {
     var body = {}
@@ -26,9 +27,17 @@ function isApp() {
 }
 
 function start() {
-	alert("start method called" + isApp())
+
+startsessionapi(function() {
     console.log("Started gps");
+    console.log(get_finger_print())
     GPS_FAILED = false;
+    polyline = new google.maps.Polyline({
+	   // set desired options for color width
+	   strokeColor:"#0000FF",
+	   strokeOpacity: 0.4      // opacity of line
+	}); // create the polyline (global)
+
 
     var geo_options_low = {
         enableHighAccuracy: false,
@@ -50,6 +59,21 @@ function start() {
     navigator.geolocation.watchPosition(
         geo_success, geo_error, geo_options
     );
+
+    // every 10 seconds push the points to the api
+    console.log("setup interval push");
+    setInterval(function() {  
+	if (!(isActive)) {
+		console.log("Saving the points");
+		savedots(function() {
+		  console.log("Saved");
+		})
+        } else { 
+	   console.log("already active pushing points..");
+	}
+    }, 10000)
+
+})
 }
 
 function geo_success_low(position) {
@@ -62,8 +86,8 @@ function geo_success_low(position) {
 
 function geo_success(position) {
     CURRENT_POSITION = position
-    console.log(position.coords.latitude +
-        " " + position.coords.longitude);
+    //console.log(position.coords.latitude +
+    //    " " + position.coords.longitude);
     localstats(position)
 }
 
@@ -82,14 +106,12 @@ function geo_error(err) {
         GPS_FAILED = true
         return
     }
-    start()
+    // start()
     console.log("errror no gps")
     console.warn('ERROR(' + err.code + '): ' + err.message);
 }
 
-window.addEventListener(
-'DOMContentLoaded', start, false
-
+window.addEventListener('DOMContentLoaded', start, false)
 
 
 //document.addEventListener('deviceready', function() { 

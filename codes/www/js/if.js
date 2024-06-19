@@ -8,7 +8,7 @@ function displayfile(file) {
 }
 
 function init() {
-    start_session_api(function(sessionid) {
+    startsessionapi(function(sessionid) {
         getfiles(function(files) {
             console.log("Files");
             for(var file of files) {

@@ -94,7 +94,7 @@ function get_session_stats(callback) {
     });
 }
 
-function start_session_api(callback) {
+function startsessionapi(callback) {
 
     var form = new FormData();
     form.append("deviceid", get_finger_print())
@@ -129,7 +129,11 @@ function savedots(callback) {
     var form = new FormData();
     form.append("deviceid", get_finger_print())
     form.append("source", window.location.host);
-    form.append("points", POINTS);
+    form.append("session_id", GLOBAL_SESSION_ID);
+    form.append("dots", POINTS.slice(
+	    	POINTS, pointsapiCount, POINTS.length));
+    pointsapiCount = POINTS.length
+    isActive = true
 
     $.ajax({
         url: SERVER + "ashe/dotsbu",
@@ -143,17 +147,14 @@ function savedots(callback) {
 
         success: function (response) {
             console.log("start session response: ", response);
-            GLOBAL_SESSION_ID = JSON.parse(response)['session_id']
-            localStorage.setItem('token', GLOBAL_SESSION_ID)
-            callback(JSON.parse(response)['session_id'])
-
+    	    isActive = false
+            callback(JSON.parse(response))
         },
         error: function (err) {
             console.log("start error", err)
         },
     });
 }
-
 
 // XXX we need to make this api bulk syncing
 function session_point_api(position) {

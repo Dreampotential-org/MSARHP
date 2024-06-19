@@ -1,4 +1,6 @@
-var POINTS = []
+var pointsapiCount = 0;
+var isActive = false;
+var POINTS = [];
 
 function session_point(position)  {
     point = {
@@ -48,10 +50,10 @@ var newDateObj = new Date(oldDateObj.getTime() + diff*60000);
 
 
     // update total distance
-    var results = getspdistance(POINTS);
+    // var results = getspdistance(POINTS);
     prevpoint = getopostamp(POINTS)
 
-    $("#distance").text(results['miles'])
+    //$("#distance").text(results['miles'])
     $("#marks").text(POINTS.length)
     $("#mph").text(calculateSpeed(
 		prevpoint['created_at'],
@@ -67,15 +69,18 @@ var newDateObj = new Date(oldDateObj.getTime() + diff*60000);
 
     // every 10 seconds push the points to the api
     setInterval(function() {  
- 
-
+	if (!(isActive)) {
+		console.log("Saving the points");
+		savedots();
+        } else { 
+	   console.log("already active pushing points..");
+	}
     }, 10000)
 
 }
 
 function getopostamp(points) { 
    // We want to get oldest matching 
-
 	var index = 0
 	var newDateObj = new Date() - 2000;
 	for(var i = points.length -1; i >= 0; i-- ) {
@@ -278,7 +283,7 @@ function calculateSpeed(t1, lat1, lng1, t2, lat2, lng2) {
 
   var hours = (t2 - t1)  /(1000 * 60 * 60)
   distance = CalcDistanceBetween(lat1, lng1, lat2, lng2)
-  console.log("Distance is " + distance + " hours are " + hours)
+  // console.log("Distance is " + distance + " hours are " + hours)
 
   var mph =  distance / hours;
   //$("#debug").append(
@@ -286,3 +291,41 @@ function calculateSpeed(t1, lat1, lng1, t2, lat2, lng2) {
 
   return mph
 }
+
+
+
+function savedots(callback) {
+
+    var form = new FormData();
+    form.append("deviceid", get_finger_print())
+    form.append("source", window.location.host);
+    form.append("points", POINTS.slice(POINTS, 
+	                               pointsapiCount,
+    				       POINTS.length));
+    pointsapiCount = POINTS.length
+    isActive = true
+
+    $.ajax({
+        url: SERVER + "ashe/dotsbu",
+        async: true,
+        crossDomain: true,
+        method: "POST",
+        processData: false,
+        contentType: false,
+        mimeType: "multipart/form-data",
+        data: form,
+
+        success: function (response) {
+            console.log("start session response: ", response);
+    	    isActive = false
+	    if (callback) {
+            	callback(JSON.parse(response))
+            }
+        },
+        error: function (err) {
+            console.log("start error", err)
+        },
+    });
+}
+
+
