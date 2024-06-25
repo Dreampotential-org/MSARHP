@@ -126,12 +126,20 @@ function startsessionapi(callback) {
 
 function savedots(callback) {
 
+    if (!(POINTS.slice(
+          POINTS,
+	    pointsapiCount, POINTS.length))) {
+
+	console.log("waiting for points xxx....");
+	return
+    }
+	
     var form = new FormData();
     form.append("deviceid", get_finger_print())
     form.append("source", window.location.host);
     form.append("session_id", GLOBAL_SESSION_ID);
-    form.append("dots", POINTS.slice(
-	    	POINTS, pointsapiCount, POINTS.length));
+    form.append("dots", JSON.stringify(POINTS.slice(
+	    	pointsapiCount, POINTS.length)));
     pointsapiCount = POINTS.length
     isActive = true
 
@@ -146,9 +154,11 @@ function savedots(callback) {
         data: form,
 
         success: function (response) {
-            console.log("start session response: ", response);
+            console.log("start session response: " + response + " " + pointsapiCount);
     	    isActive = false
-            callback(JSON.parse(response))
+	    if (callback) {
+            	callback(JSON.parse(response))
+	    }
         },
         error: function (err) {
             console.log("start error", err)
