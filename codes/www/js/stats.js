@@ -299,7 +299,8 @@ function savedots(callback) {
     var form = new FormData();
     form.append("deviceid", get_finger_print())
     form.append("source", window.location.host);
-    form.append("points", POINTS.slice(POINTS, 
+    form.append("session_id", GLOBAL_SESSION_ID);
+    form.append("dots", POINTS.slice(POINTS, 
 	                               pointsapiCount,
     				       POINTS.length));
     pointsapiCount = POINTS.length
