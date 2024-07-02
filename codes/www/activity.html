@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+
+    <link rel="stylesheet" href="css/index.css">
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type='module' src="js/fingerprint.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/catcher.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/stats.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/activity.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFH-yKmfPyaa18_uYUwVWb7THj-b1hymE&v=weekly"></script>
+
+    <style>
+        /* CSS for centering and animating buttons */
+
+        /* Center the buttons and add proper x-axis alignment */
+        #stats > div {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        /* Style for the buttons */
+        .interval_button {
+            background-color: rgb(37, 184, 181);
+            color: rgb(8, 0, 0);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hover effect */
+        .interval_button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Active effect */
+        .interval_button:active {
+            transform: scale(0.9);
+            box-shadow: none;
+        }
+
+        /* Ensure button visibility */
+        .interval_button:focus {
+            outline: none;
+        }
+
+        /* Adjust z-index for button visibility */
+        .interval_button:not(:focus) {
+            opacity: 1;
+        }
+
+        /* Adjust opacity for active button */
+        .interval_button:active {
+            opacity: 1 !important;
+        }
+    </style>
+    <title></title>
+</head>
+<body>
+    <div id='activity'></div>
+</body>
+
+</html>

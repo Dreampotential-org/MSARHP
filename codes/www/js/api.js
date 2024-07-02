@@ -63,6 +63,36 @@ function getfiles(callback) {
     });
 }
 
+
+function getsessions(callback) {
+
+    var form = new FormData();
+    form.append("source", window.location.host);
+    form.append("deviceid", get_finger_print())
+
+    $.ajax({
+        url: SERVER + "ashe/sessions?deviceid=" + get_finger_print(),
+        async: true,
+        crossDomain: true,
+        method: "GET",
+        processData: false,
+        contentType: false,
+        mimeType: "multipart/form-data",
+        data: form,
+        headers: {
+            Authorization: localStorage.getItem('token'),
+        },
+        success: function (response) {
+		console.log("start sessions response: ", response);
+		callback(JSON.parse(response))
+
+	},
+	    error: function (err) {
+		    console.log("start error", err)
+	    },
+    });
+}
+
 function get_session_stats(callback) {
 
     var form = new FormData();
